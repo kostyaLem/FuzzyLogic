@@ -43,17 +43,15 @@ namespace FuzzyLogic.DAL.Test
             Assert.IsNotNull(expectedAccount);
         }
 
-        //[Test, Order(3)]
-        //public void RemoveExistedAccount_Ok()
-        //{
-        //    var accounts = _service.GetAccounts().Result;
-        //    var account = accounts.First();
+        [Test, Order(3)]
+        public void RemoveExistedAccount_Ok()
+        {
+            var account = TestInitializer.Context.Accounts.First().MapToDto();
 
-        //    _service.DeleteAccount(account);
-        //    _service.Save();
+            _service.DeleteAccount(account);
+            _service.Save();
 
-        //    var modifiedAccountsCount = _service.GetAccounts().Result.Count();
-        //    Assert.AreEqual(accounts.Count() - 1, modifiedAccountsCount);
-        //}
+            Assert.Zero(TestInitializer.Context.Accounts.Count());
+        }
     }
 }

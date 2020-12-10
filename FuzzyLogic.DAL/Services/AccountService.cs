@@ -32,9 +32,11 @@ namespace FuzzyLogic.DAL.Services
             _unitOfWork.Acconts.Create(account);
         }
 
-        public void DeleteAccount(AccountDto accountDto)
+        public async Task DeleteAccount(AccountDto accountDto)
         {
-            _unitOfWork.Acconts.Delete(accountDto.MapToEntity());
+            var account = await _unitOfWork.Acconts.Get(accountDto.Id);
+
+            _unitOfWork.Acconts.Delete(account);
         }
 
         public async Task UpdateAccount(AccountDto accountDto)
