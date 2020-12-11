@@ -2,7 +2,6 @@
 using FuzzyLogic.DAL.Models;
 using FuzzyLogic.DB.Context;
 using FuzzyLogic.DB.Context.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,11 +51,9 @@ namespace FuzzyLogic.DAL.Services
             return await GetAccounts(_ => true);
         }
 
-        public async Task<IEnumerable<AccountDto>> GetAccounts(Func<Account, bool> filter)
+        public async Task<IEnumerable<AccountDto>> GetAccounts(Func<AccountDto, bool> filter)
         {
-            var acc = await _unitOfWork.Acconts.GetAll(x => filter(x));
-
-            return (await _unitOfWork.Acconts.GetAll(x => filter(x))).Select(x => x.MapToDto());
+            return (await _unitOfWork.Acconts.GetAll(x => filter(x.MapToDto()))).Select(x => x.MapToDto());
         }
 
         public async void Save()
