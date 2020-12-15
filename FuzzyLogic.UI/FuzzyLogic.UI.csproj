@@ -11,7 +11,9 @@
     <None Remove="Resources\Images\auth_back.jpg" />
     <None Remove="Resources\Images\book.png" />
     <None Remove="Resources\Images\done.png" />
+    <None Remove="Resources\Images\login.png" />
     <None Remove="Resources\Images\new_user.png" />
+    <None Remove="Resources\Images\password.png" />
     <None Remove="Resources\Images\researcher.png" />
   </ItemGroup>
 
@@ -29,7 +31,9 @@
     <Resource Include="Resources\Images\auth_back.jpg" />
     <Resource Include="Resources\Images\book.png" />
     <Resource Include="Resources\Images\done.png" />
+    <Resource Include="Resources\Images\login.png" />
     <Resource Include="Resources\Images\new_user.png" />
+    <Resource Include="Resources\Images\password.png" />
     <Resource Include="Resources\Images\researcher.png" />
   </ItemGroup>
 

@@ -6,6 +6,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="\Resources\Images\ImagesDictionary.xaml" />
+                <ResourceDictionary Source="\Infrastructure\Controls\CustomTextBoxStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

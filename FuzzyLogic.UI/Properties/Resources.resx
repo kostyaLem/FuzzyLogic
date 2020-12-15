@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="hello" xml:space="preserve">
-    <value>привет</value>
+  <data name="AddUserTitle" xml:space="preserve">
+    <value>Регистрация</value>
   </data>
-  <data name="width" xml:space="preserve">
-    <value>русский</value>
+  <data name="AdminTitle" xml:space="preserve">
+    <value>Администратор</value>
+  </data>
+  <data name="AuthTitle" xml:space="preserve">
+    <value>Авторизация</value>
+  </data>
+  <data name="KnowledgeEngineerTitle" xml:space="preserve">
+    <value>Инженер по знаниям</value>
+  </data>
+  <data name="RegistrationTitle" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="ResearcherTitle" xml:space="preserve">
+    <value>Исследователь</value>
+  </data>
+  <data name="SelectUserTypeTitle" xml:space="preserve">
+    <value>Выберите тип пользователя:</value>
   </data>
 </root>

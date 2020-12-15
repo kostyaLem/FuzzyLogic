@@ -1,21 +1,19 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace FuzzyLogic.UI.Views
 {
-    /// <summary>
-    /// Interaction logic for AuthView.xaml
-    /// </summary>
     public partial class AuthView : Window
     {
         public AuthView()
         {
             InitializeComponent();
-
         }
 
-        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            DragMove();
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
         }
     }
 }

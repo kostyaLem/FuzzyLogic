@@ -5,4 +5,7 @@
     <BitmapImage x:Key="DoneImage" UriSource="done.png" />
     <BitmapImage x:Key="NewUserImage" UriSource="new_user.png" />
     <BitmapImage x:Key="ResearcherImage" UriSource="researcher.png" />
+
+    <BitmapImage x:Key="LoginImage" UriSource="login.png" />
+    <BitmapImage x:Key="PasswordImage" UriSource="password.png" />
 </ResourceDictionary>

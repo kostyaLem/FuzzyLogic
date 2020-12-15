@@ -61,20 +61,65 @@ namespace FuzzyLogic.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to привет.
+        ///   Looks up a localized string similar to Регистрация.
         /// </summary>
-        public static string hello {
+        public static string AddUserTitle {
             get {
-                return ResourceManager.GetString("hello", resourceCulture);
+                return ResourceManager.GetString("AddUserTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to русский.
+        ///   Looks up a localized string similar to Администратор.
         /// </summary>
-        public static string width {
+        public static string AdminTitle {
             get {
-                return ResourceManager.GetString("width", resourceCulture);
+                return ResourceManager.GetString("AdminTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Авторизация.
+        /// </summary>
+        public static string AuthTitle {
+            get {
+                return ResourceManager.GetString("AuthTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Инженер по знаниям.
+        /// </summary>
+        public static string KnowledgeEngineerTitle {
+            get {
+                return ResourceManager.GetString("KnowledgeEngineerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Регистрация.
+        /// </summary>
+        public static string RegistrationTitle {
+            get {
+                return ResourceManager.GetString("RegistrationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Исследователь.
+        /// </summary>
+        public static string ResearcherTitle {
+            get {
+                return ResourceManager.GetString("ResearcherTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выберите тип пользователя:.
+        /// </summary>
+        public static string SelectUserTypeTitle {
+            get {
+                return ResourceManager.GetString("SelectUserTypeTitle", resourceCulture);
             }
         }
     }
