@@ -38,7 +38,7 @@ namespace FuzzyLogic.DAL.Interfaces
         /// Создать новую сущность
         /// </summary>
         /// <param name="entity"> Сущность </param>
-        void Create(T entity);
+        T Create(T entity);
 
         /// <summary>
         /// Обновить сущность

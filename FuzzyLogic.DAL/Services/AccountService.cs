@@ -1,5 +1,6 @@
 ﻿using FuzzyLogic.DAL.Mappers;
 using FuzzyLogic.DAL.Models;
+using FuzzyLogic.DAL.Utils;
 using FuzzyLogic.DB.Context;
 using FuzzyLogic.DB.Context.Models;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FuzzyLogic.DAL.Services
 {
-    public sealed class AccountService : IDisposable
+    public sealed class AccountService : IAccountService, IAuthService, IDisposable
     {
         private UnitOfWork<FuzzyContext> _unitOfWork;
 
@@ -26,9 +27,13 @@ namespace FuzzyLogic.DAL.Services
         public void CreateAccount(AccountDto accountDto)
         {
             var account = accountDto.MapToEntity();
+            account.Password = PasswordCreator.CreatePasswordHash(account.Password);
             account.Role = _unitOfWork.DbContext.Roles.First(x => x.Id == accountDto.Role.Id);
 
             _unitOfWork.Acconts.Create(account);
+            _unitOfWork.SaveChangesAsync().Wait();
+
+            accountDto.Id = account.Id;
         }
 
         public async Task DeleteAccount(AccountDto accountDto)
@@ -54,6 +59,21 @@ namespace FuzzyLogic.DAL.Services
         public async Task<IEnumerable<AccountDto>> GetAccounts(Func<AccountDto, bool> filter)
         {
             return (await _unitOfWork.Acconts.GetAll(x => filter(x.MapToDto()))).Select(x => x.MapToDto());
+        }
+
+        public async Task<AccountDto> TryLogin(string login, string password)
+        {
+            var account = await _unitOfWork.Acconts.Get(x => x.Login == login);
+
+            if (account != null)
+            {
+                if (account.Password == PasswordCreator.CreatePasswordHash(password))
+                {
+                    return account.MapToDto();
+                }
+            }
+
+            return default;
         }
 
         public async void Save()

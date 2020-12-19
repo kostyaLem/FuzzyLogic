@@ -13,7 +13,6 @@ namespace FuzzyLogic.DAL.Mappers
             {
                 Id = account.Id,
                 Login = account.Login,
-                Password = account.Password,
                 Role = account.Role.MapToDto(),
                 Reports = account.Reports?.Select(a => a.MapToDto()).ToList()
             };

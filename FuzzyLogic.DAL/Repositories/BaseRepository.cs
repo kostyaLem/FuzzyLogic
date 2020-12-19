@@ -46,9 +46,9 @@ namespace FuzzyLogic.DAL.Repositories
             _dbContext.Set<T>().Update(entity);
         }
 
-        public void Create(T entity)
+        public T Create(T entity)
         {
-            _dbContext.Set<T>().Add(entity);
+            return _dbContext.Set<T>().Add(entity).Entity;
         }
 
         public void Delete(T entity)

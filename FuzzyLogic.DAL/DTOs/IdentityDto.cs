@@ -4,6 +4,6 @@ namespace FuzzyLogic.DAL.Models
 {
     public abstract class IdentityDto
     {
-        internal long Id { get; set; }
+        public long Id { get; set; }
     }
 }
