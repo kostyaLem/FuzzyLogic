@@ -1,0 +1,209 @@
+﻿<UserControl
+    x:Class="FuzzyLogic.UI.Controls.WindowControlButtons"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:extensions="clr-namespace:FuzzyLogic.UI.Resources.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="control"
+    mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal">
+        <StackPanel.Resources>
+            <SolidColorBrush x:Key="DefaultButtonBrush" Color="#E7EAED" />
+            <SolidColorBrush x:Key="HoveredButtonBrush" Color="#D0D2D5" />
+            <SolidColorBrush x:Key="HoveredCloseButtonBrush" Color="#E81123" />
+            <Duration x:Key="AnimateDuration">0:0:0.25</Duration>
+
+            <Style x:Key="BaseByttonStyle" TargetType="Button">
+                <Setter Property="Height" Value="29" />
+                <Setter Property="Width" Value="45" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="{StaticResource DefaultButtonBrush}" />
+            </Style>
+
+            <Style
+                x:Key="CommonButton"
+                BasedOn="{StaticResource BaseByttonStyle}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <extensions:SolidColorAnimation
+                                        ToBrush="{StaticResource HoveredButtonBrush}"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        Duration="{StaticResource AnimateDuration}" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <extensions:SolidColorAnimation
+                                        ToBrush="{StaticResource DefaultButtonBrush}"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        Duration="{StaticResource AnimateDuration}" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                    </Trigger>
+
+                </Style.Triggers>
+            </Style>
+
+            <Style
+                x:Key="CloseButton"
+                BasedOn="{StaticResource BaseByttonStyle}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <extensions:SolidColorAnimation
+                                        ToBrush="{StaticResource HoveredCloseButtonBrush}"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        Duration="{StaticResource AnimateDuration}" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <extensions:SolidColorAnimation
+                                        ToBrush="{StaticResource DefaultButtonBrush}"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        Duration="{StaticResource AnimateDuration}" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                    </Trigger>
+
+                </Style.Triggers>
+            </Style>
+        </StackPanel.Resources>
+
+        <Button Style="{StaticResource CommonButton}" Visibility="{Binding ElementName=control, Path=ShowSkipButton, Converter={dxmvvm:BooleanToVisibilityConverter}}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="0,0,0,20" />
+                </Style>
+            </Button.Resources>
+
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand Command="{Binding ElementName=control, Path=SkipCommand}" EventName="Click" />
+            </dxmvvm:Interaction.Behaviors>
+
+            <Line
+                SnapsToDevicePixels="True"
+                Stroke="Black"
+                X1="0"
+                X2="10" />
+
+        </Button>
+
+        <Button Style="{StaticResource CommonButton}" Visibility="{Binding ElementName=control, Path=ShowExpanderButton, Converter={dxmvvm:BooleanToVisibilityConverter}}">
+
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand Command="{Binding ElementName=control, Path=ExpandCommand}" EventName="Click" />
+            </dxmvvm:Interaction.Behaviors>
+
+            <Rectangle
+                Width="10"
+                Height="10"
+                SnapsToDevicePixels="True"
+                Stroke="Black" />
+
+        </Button>
+        <Button Style="{StaticResource CloseButton}" Visibility="{Binding ElementName=control, Path=ShowCloseButton, Converter={dxmvvm:BooleanToVisibilityConverter}}">
+
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand Command="{Binding ElementName=control, Path=CloseCommand}" EventName="Click" />
+            </dxmvvm:Interaction.Behaviors>
+
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetName="line1"
+                                Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)"
+                                To="White"
+                                Duration="{StaticResource AnimateDuration}" />
+                            <ColorAnimation
+                                Storyboard.TargetName="line2"
+                                Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)"
+                                To="White"
+                                Duration="{StaticResource AnimateDuration}" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetName="line1"
+                                Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)"
+                                To="Black"
+                                Duration="{StaticResource AnimateDuration}" />
+                            <ColorAnimation
+                                Storyboard.TargetName="line2"
+                                Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)"
+                                To="Black"
+                                Duration="{StaticResource AnimateDuration}" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Button.Triggers>
+
+            <Grid>
+                <Line
+                    x:Name="line1"
+                    RenderTransformOrigin="0.5,0.5"
+                    SnapsToDevicePixels="True"
+                    Stroke="Black"
+                    X2="12.7">
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="45" />
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
+                <Line
+                    x:Name="line2"
+                    RenderTransformOrigin="0.5,0.5"
+                    SnapsToDevicePixels="True"
+                    Stroke="Black"
+                    X1="0.2"
+                    X2="13">
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="-45" />
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
+            </Grid>
+
+        </Button>
+    </StackPanel>
+</UserControl>
