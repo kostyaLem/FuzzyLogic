@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuzzyLogic.DAL", "FuzzyLogi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuzzyLogic.DAL.Test", "FuzzyLogic.DAL.Test\FuzzyLogic.DAL.Test.csproj", "{8A65ED34-D584-4A56-9202-5F2EFB90E0A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuzzyLogic.UI", "FuzzyLogic.UI\FuzzyLogic.UI.csproj", "{C3798481-D51F-480D-9077-61C25E82C91D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuzzyLogic.UI", "FuzzyLogic.UI\FuzzyLogic.UI.csproj", "{C3798481-D51F-480D-9077-61C25E82C91D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

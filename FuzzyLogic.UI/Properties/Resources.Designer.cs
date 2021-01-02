@@ -115,6 +115,15 @@ namespace FuzzyLogic.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вход.
+        /// </summary>
+        public static string LogInTitle {
+            get {
+                return ResourceManager.GetString("LogInTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Регистрация.
         /// </summary>
         public static string RegistrationTitle {

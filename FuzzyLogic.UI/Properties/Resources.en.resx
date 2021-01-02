@@ -117,7 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="hello" xml:space="preserve">
-    <value>hello</value>
+  <data name="AddUserTitle" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="AdminTitle" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="AuthTitle" xml:space="preserve">
+    <value>Authorization</value>
+  </data>
+  <data name="InputLoginHint" xml:space="preserve">
+    <value>Enter username</value>
+  </data>
+  <data name="InputPasswordHint" xml:space="preserve">
+    <value>Enter password</value>
+  </data>
+  <data name="KnowledgeEngineerTitle" xml:space="preserve">
+    <value>Knowledge Engineer</value>
+  </data>
+  <data name="RegistrationTitle" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="ResearcherTitle" xml:space="preserve">
+    <value>Researcher</value>
+  </data>
+  <data name="SelectUserTypeTitle" xml:space="preserve">
+    <value>Select user type:</value>
+  </data>
+  <data name="LogInTitle" xml:space="preserve">
+    <value>Sign in</value>
   </data>
 </root>
