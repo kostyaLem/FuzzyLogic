@@ -16,7 +16,7 @@ namespace FuzzyLogic.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var view = new AuthView();
+            var view = new AuthView() { DataContext = new AuthViewModel()};
             view.ShowDialog();
 
             base.OnStartup(e);

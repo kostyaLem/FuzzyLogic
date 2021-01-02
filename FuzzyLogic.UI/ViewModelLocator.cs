@@ -1,21 +1,22 @@
 ﻿using FuzzyLogic.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FuzzyLogic.UI
 {
-    public class ViewModelLocator
+    internal static class ViewModelLocator
     {
         private static IServiceProvider _provider;
 
-        public static void Init()
+        public static AuthViewModel AuthViewModel => _provider.GetRequiredService<AuthViewModel>();
+
+        static ViewModelLocator()
         {
             var services = new ServiceCollection();
 
             services.AddSingleton<AuthViewModel>();
-        }
 
+            _provider = services.BuildServiceProvider();
+        }
     }
 }

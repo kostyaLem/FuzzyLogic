@@ -5,16 +5,18 @@
     xmlns:controls="clr-namespace:FuzzyLogic.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dp="clr-namespace:FuzzyLogic.UI.Infrastructure.DP"
-    xmlns:extensions="clr-namespace:FuzzyLogic.UI.Resources.Extensions"
-    xmlns:local="clr-namespace:FuzzyLogic.UI.Properties"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prop="clr-namespace:FuzzyLogic.UI.Properties"
+    xmlns:vml="clr-namespace:FuzzyLogic.UI"
     Width="800"
     Height="400"
     AllowsTransparency="True"
     Background="Transparent"
+    DataContext="{x:Static vml:ViewModelLocator.AuthViewModel}"
     MouseDown="Window_MouseDown"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
+    WindowState="{Binding WindowState}"
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
@@ -318,6 +320,7 @@
             </Setter>
         </Style>
     </Window.Resources>
+
     <Border Background="White" CornerRadius="20,0,0,20">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -325,68 +328,84 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <controls:WindowControlButtons
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                ShowExpanderButton="False" />
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-            <StackPanel Grid.Column="1">
                 <TextBlock
-                    Margin="0,10,0,0"
+                    Grid.Row="0"
+                    Margin="0,25,0,0"
                     HorizontalAlignment="Center"
                     FontFamily="Candara Light"
                     FontSize="16"
-                    Text="{x:Static local:Resources.SelectUserTypeTitle}" />
+                    Text="{x:Static prop:Resources.SelectUserTypeTitle}" />
 
-                <WrapPanel
-                    Margin="0,10,0,0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top">
+                <controls:WindowControlButtons
+                    Grid.Row="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    CloseCommand="{Binding ExitCommand}"
+                    ShowExpanderButton="False"
+                    SkipCommand="{Binding SkipCommand}" />
 
-                    <RadioButton
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        dp:ButtonProperties.Image="{StaticResource AdminPlateImage}"
-                        Content="{x:Static local:Resources.AdminTitle}"
-                        IsChecked="True" />
+                <StackPanel Grid.Row="1">
 
-                    <RadioButton
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        dp:ButtonProperties.Image="{StaticResource ScientistImage}"
-                        Content="{x:Static local:Resources.KnowledgeEngineerTitle}" />
+                    <!--  User Type Buttons  -->
+                    <WrapPanel
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
 
-                    <RadioButton
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        dp:ButtonProperties.Image="{StaticResource ResearcherImage}"
-                        Content="{x:Static local:Resources.ResearcherTitle}"
-                        IsChecked="True" />
+                        <RadioButton
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            dp:ButtonProperties.Image="{StaticResource AdminPlateImage}"
+                            Content="{x:Static prop:Resources.AdminTitle}"
+                            IsChecked="True" />
 
-                    <RadioButton
-                        x:Name="RegistrationButton"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        dp:ButtonProperties.Image="{StaticResource NewUserImage}"
-                        Content="{x:Static local:Resources.AddUserTitle}" />
+                        <RadioButton
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            dp:ButtonProperties.Image="{StaticResource ScientistImage}"
+                            Content="{x:Static prop:Resources.KnowledgeEngineerTitle}" />
 
-                </WrapPanel>
+                        <RadioButton
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            dp:ButtonProperties.Image="{StaticResource ResearcherImage}"
+                            Content="{x:Static prop:Resources.ResearcherTitle}"
+                            IsChecked="True" />
 
+                        <RadioButton
+                            x:Name="RegistrationButton"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            dp:ButtonProperties.Image="{StaticResource NewUserImage}"
+                            Content="{x:Static prop:Resources.AddUserTitle}" />
 
+                    </WrapPanel>
 
-                <StackPanel Width="300" Margin="0,40,0,0">
+                </StackPanel>
+
+                <!--  Auth Part  -->
+                <StackPanel
+                    Grid.Row="2"
+                    Width="300"
+                    VerticalAlignment="Center">
 
                     <TextBlock
-                        Margin="0,3,0,10"
+                        Margin="0,0,0,10"
                         FontFamily="Century Gothic"
                         FontSize="24">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
-                                <Setter Property="Text" Value="{x:Static local:Resources.AuthTitle}" />
+                                <Setter Property="Text" Value="{x:Static prop:Resources.AuthTitle}" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsChecked, ElementName=RegistrationButton}" Value="True">
-                                        <Setter Property="Text" Value="{x:Static local:Resources.RegistrationTitle}" />
+                                        <Setter Property="Text" Value="{x:Static prop:Resources.RegistrationTitle}" />
                                     </DataTrigger>
 
                                 </Style.Triggers>
@@ -394,44 +413,37 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <TextBox
+                    <controls:CustomTextBox
                         Height="32"
-                        VerticalContentAlignment="Center"
-                        dp:TextBoxProperties.Icon="{StaticResource LoginImage}"
-                        FontSize="18"
-                        Style="{StaticResource IconedTextBox}"
-                        Text="kostyaLem" />
+                        HintTextSize="14"
+                        Icon="{StaticResource LoginImage}"
+                        TextFontSize="16" />
 
-                    <PasswordBox
+                    <controls:CustomPasswordBox
                         Height="32"
-                        Margin="0,5,0,0"
-                        VerticalContentAlignment="Center"
-                        dp:PasswordBoxProperties.Icon="{StaticResource PasswordImage}"
-                        FontSize="18"
-                        Password="password"
-                        Style="{StaticResource IconedPasswordBox}" />
-                </StackPanel>
+                        HintTextSize="14"
+                        Icon="{StaticResource PasswordImage}"
+                        TextFontSize="16" />
 
+                    <controls:CustomPasswordBox
+                        Height="32"
+                        HintTextSize="14"
+                        Icon="{StaticResource PasswordImage}"
+                        TextFontSize="16" />
 
-                <Button
-                    Width="300"
-                    Margin="0,10,0,0"
-                    Background="#FF3C7FB1"
-                    Content="Вход"
-                    FontFamily="MS Reference Sans Serif"
-                    FontSize="20"
-                    Foreground="White"
-                    Style="{DynamicResource CustomButtonStyle}" />
-
-                <!--<TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
+                    <Button
+                        Width="300"
+                        Margin="0,10,0,0"
+                        Background="#FF3C7FB1"
+                        Content="Вход"
                         FontFamily="MS Reference Sans Serif"
                         FontSize="20"
                         Foreground="White"
-                        Text="Вход" />-->
+                        Style="{DynamicResource CustomButtonStyle}" />
 
-            </StackPanel>
+                </StackPanel>
+
+            </Grid>
 
             <Border
                 Grid.Column="0"

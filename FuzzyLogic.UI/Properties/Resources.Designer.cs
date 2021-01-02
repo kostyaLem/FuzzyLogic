@@ -88,6 +88,24 @@ namespace FuzzyLogic.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введите имя пользователя.
+        /// </summary>
+        public static string InputLoginHint {
+            get {
+                return ResourceManager.GetString("InputLoginHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите пароль.
+        /// </summary>
+        public static string InputPasswordHint {
+            get {
+                return ResourceManager.GetString("InputPasswordHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Инженер по знаниям.
         /// </summary>
         public static string KnowledgeEngineerTitle {

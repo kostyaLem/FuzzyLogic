@@ -126,6 +126,12 @@
   <data name="AuthTitle" xml:space="preserve">
     <value>Авторизация</value>
   </data>
+  <data name="InputLoginHint" xml:space="preserve">
+    <value>Введите имя пользователя</value>
+  </data>
+  <data name="InputPasswordHint" xml:space="preserve">
+    <value>Введите пароль</value>
+  </data>
   <data name="KnowledgeEngineerTitle" xml:space="preserve">
     <value>Инженер по знаниям</value>
   </data>
