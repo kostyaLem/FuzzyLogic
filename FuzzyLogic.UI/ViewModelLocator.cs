@@ -1,4 +1,6 @@
-﻿using FuzzyLogic.UI.ViewModels;
+﻿using FuzzyLogic.UI.Services;
+using FuzzyLogic.UI.Services.Interfaces;
+using FuzzyLogic.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -14,7 +16,10 @@ namespace FuzzyLogic.UI
         {
             var services = new ServiceCollection();
 
-            services.AddSingleton<AuthViewModel>();
+            services.AddSingleton<IMessageBoxService, MessageBoxService>();
+
+            services.AddSingleton<AuthViewModel>();           
+
 
             _provider = services.BuildServiceProvider();
         }

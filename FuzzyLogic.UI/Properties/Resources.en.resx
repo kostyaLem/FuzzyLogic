@@ -147,4 +147,10 @@
   <data name="LogInTitle" xml:space="preserve">
     <value>Sign in</value>
   </data>
+  <data name="NotificationTitle" xml:space="preserve">
+    <value>Notification</value>
+  </data>
+  <data name="CantAuthMessage" xml:space="preserve">
+    <value>Failed to login</value>
+  </data>
 </root>

@@ -147,4 +147,10 @@
   <data name="LogInTitle" xml:space="preserve">
     <value>Вход</value>
   </data>
+  <data name="NotificationTitle" xml:space="preserve">
+    <value>Уведомление</value>
+  </data>
+  <data name="CantAuthMessage" xml:space="preserve">
+    <value>Не удалось авторизоваться</value>
+  </data>
 </root>

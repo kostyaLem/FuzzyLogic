@@ -88,6 +88,15 @@ namespace FuzzyLogic.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не удалось авторизоваться.
+        /// </summary>
+        public static string CantAuthMessage {
+            get {
+                return ResourceManager.GetString("CantAuthMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введите имя пользователя.
         /// </summary>
         public static string InputLoginHint {
@@ -120,6 +129,15 @@ namespace FuzzyLogic.UI.Properties {
         public static string LogInTitle {
             get {
                 return ResourceManager.GetString("LogInTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Уведомление.
+        /// </summary>
+        public static string NotificationTitle {
+            get {
+                return ResourceManager.GetString("NotificationTitle", resourceCulture);
             }
         }
         
