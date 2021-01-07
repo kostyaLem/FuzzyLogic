@@ -417,6 +417,7 @@
                         Height="32"
                         HintTextSize="14"
                         Icon="{StaticResource LoginImage}"
+                        Text="{Binding Login, Mode=OneWayToSource}"
                         TextFontSize="16" />
 
                     <controls:CustomPasswordBox
@@ -458,7 +459,7 @@
                                 <Setter Property="Command" Value="{Binding SignInCommand}" />
                                 <Setter Property="CommandParameter">
                                     <Setter.Value>
-                                        <Binding ElementName="pass1" Converter="{converters:PasswordBoxToPasswordConverter}" />
+                                        <Binding ElementName="pass1" />
                                     </Setter.Value>
                                 </Setter>
 
@@ -467,7 +468,7 @@
                                         <Setter Property="Command" Value="{Binding RegistrationCommand}" />
                                         <Setter Property="CommandParameter">
                                             <Setter.Value>
-                                                <MultiBinding Converter="{converters:PasswordBoxToPasswordsConverter}">
+                                                <MultiBinding>
                                                     <Binding ElementName="pass1" />
                                                     <Binding ElementName="pass2" />
                                                 </MultiBinding>

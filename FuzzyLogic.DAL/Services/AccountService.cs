@@ -24,16 +24,25 @@ namespace FuzzyLogic.DAL.Services
             return await _unitOfWork.Roles.GetAll();
         }
 
-        public void CreateAccount(AccountDto accountDto)
+        public async Task<AccountDto> CreateAccount(string login, string password1, string password2, AccountType type)
         {
-            var account = accountDto.MapToEntity();
-            account.Password = PasswordCreator.CreatePasswordHash(account.Password);
-            account.Role = _unitOfWork.DbContext.Roles.First(x => x.Id == accountDto.Role.Id);
+            if (password1 != password2)
+                throw new Exception("Пароли не совпадают");
 
-            _unitOfWork.Acconts.Create(account);
-            _unitOfWork.SaveChangesAsync().Wait();
+            var account = await CheckAccount(login);
 
-            accountDto.Id = account.Id;
+            if (account == null)
+            {
+                account = new Account { Login = login, Password = password1, Role = await _unitOfWork.Roles.Get((int)type), RoleId = (int)type };
+
+                _unitOfWork.Acconts.Create(account);
+
+                await _unitOfWork.SaveChangesAsync();
+
+                return account.MapToDto();
+            }
+
+            throw new Exception("Аккаунт с таким логином уже существует");
         }
 
         public async Task DeleteAccount(AccountDto accountDto)
@@ -61,24 +70,29 @@ namespace FuzzyLogic.DAL.Services
             return (await _unitOfWork.Acconts.GetAll(x => filter(x.MapToDto()))).Select(x => x.MapToDto());
         }
 
-        public async Task<AccountDto> TryLogin(string login, string password)
+        public async Task<AccountDto> TryLogin(string login, string password, AccountType type)
         {
-            var account = await _unitOfWork.Acconts.Get(x => x.Login == login);
+            var account = await CheckAccount(login);
 
             if (account != null)
             {
-                if (account.Password == PasswordCreator.CreatePasswordHash(password))
+                if (PasswordCreator.CreateHash(account.Password) == PasswordCreator.CreateHash(password))
                 {
                     return account.MapToDto();
                 }
             }
 
-            return default;
+            throw new Exception("Данный аккаунт не существует");
         }
 
         public async void Save()
         {
             await _unitOfWork.SaveChangesAsync();
+        }
+
+        private async Task<Account> CheckAccount(string login)
+        {
+            return await _unitOfWork.Acconts.Get(x => x.Login == login);
         }
 
         public void Dispose()

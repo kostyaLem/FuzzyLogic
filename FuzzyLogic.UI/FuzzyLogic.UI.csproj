@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FuzzyLogic.DAL\FuzzyLogic.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\admin.png" />
     <Resource Include="Resources\Images\auth_back.jpg" />
     <Resource Include="Resources\Images\book.png" />

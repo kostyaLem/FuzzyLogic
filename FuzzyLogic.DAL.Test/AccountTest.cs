@@ -11,21 +11,15 @@ namespace FuzzyLogic.DAL.Test
     public class AccountTest
     {
         private string _login = "user";
-        private string _password = "user";
+        private string _password1 = "user";
+        private string _password2 = "user";
 
         private AccountService _service = TestInitializer.Accounts;
 
         [Test, Order(1)]
         public async Task CreateNewAccount_Ok()
         {
-            var account = new AccountDto
-            {
-                Login = _login,
-                Password = _password,
-                Role = TestInitializer.Context.Roles.First(x => x.Status == (int)AccountType.User).MapToDto()
-            };
-
-            _service.CreateAccount(account);
+            var account = await _service.CreateAccount(_login, _password1, _password2, AccountType.Engineer);
 
             var accounts = await _service.GetAccounts();
             var expectedAccount = _service.GetAccounts().Result.Single(x => x.Id == account.Id);
@@ -35,7 +29,7 @@ namespace FuzzyLogic.DAL.Test
         [Test, Order(2)]
         public async Task LoginAccount_Ok()
         {
-            var account = await _service.TryLogin(_login, _password);
+            var account = await _service.TryLogin(_login, _password1, AccountType.Engineer);
 
             Assert.IsNotNull(account);
         }

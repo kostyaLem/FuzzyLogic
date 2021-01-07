@@ -2,7 +2,8 @@
 {
     public enum AccountType
     {
-        User,
-        Admin
+        Engineer = 1,        
+        Admin,
+        Researcher
     }
 }

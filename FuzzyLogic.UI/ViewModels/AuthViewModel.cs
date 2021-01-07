@@ -1,4 +1,7 @@
 ﻿using DevExpress.Mvvm;
+using FuzzyLogic.DAL.Models;
+using FuzzyLogic.DAL.Services;
+using FuzzyLogic.UI.Controls;
 using System;
 using System.Security;
 using System.Windows;
@@ -8,29 +11,38 @@ namespace FuzzyLogic.UI.ViewModels
 {
     internal sealed class AuthViewModel : BaseViewModel
     {
-        private IMessageBoxService MessageBoxService;
+        private readonly IAuthService _authService;
+        private readonly IMessageBoxService MessageBoxService;
 
         public WindowState WindowState { get; set; }
+        public string Login { get; set; }
+        public AccountType SelectedAccountType { get; set; }
 
-        public DelegateCommand<SecureString> SignInCommand { get; set; }
+        #region Commands
+
+        public DelegateCommand<CustomPasswordBox> SignInCommand { get; set; }
         public DelegateCommand<Tuple<SecureString, SecureString>> RegistrationCommand { get; set; }
 
         public DelegateCommand SkipCommand { get; set; }
         public DelegateCommand ExitCommand { get; set; }
 
-        public AuthViewModel(IMessageBoxService mbService)
+        #endregion
+
+        public AuthViewModel(IAuthService authService, IMessageBoxService mbService)
         {
+            _authService = authService;
             MessageBoxService = mbService;
 
-            SignInCommand = new DelegateCommand<SecureString>(SignIn);
+            SignInCommand = new DelegateCommand<CustomPasswordBox>(SignIn);
             RegistrationCommand = new DelegateCommand<Tuple<SecureString, SecureString>>(Registration);
 
             SkipCommand = new DelegateCommand(Skip);
             ExitCommand = new DelegateCommand(Exit);
         }
 
-        private void SignIn(SecureString secureString)
+        private async void SignIn(CustomPasswordBox secureString)
         {
+            var account = await _authService.TryLogin(Login, secureString.Password, SelectedAccountType);
 
             MessageBoxService.ShowMessage(Properties.Resources.CantAuthMessage, Properties.Resources.NotificationTitle, MessageBoxImage.Warning);
         }

@@ -4,6 +4,8 @@ namespace FuzzyLogic.UI.Controls
 {
     public partial class CustomPasswordBox : BaseCustomBox
     {
+        public string Password => PBox.Password;
+
         public bool? HintDisplayed { get; private set; }
 
         public CustomPasswordBox()

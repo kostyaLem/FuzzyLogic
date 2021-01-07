@@ -16,7 +16,7 @@ namespace FuzzyLogic.DAL.Utils
             _salt = Convert.FromBase64String(config["PasswordSalt"]);
         }
 
-        public static string CreatePasswordHash(string password)
+        public static string CreateHash(string password)
         {
             var passwordBytes = Encoding.Unicode.GetBytes(password);
             var passwordBytesHash = GenerateSaltedHash(passwordBytes);

@@ -9,12 +9,6 @@ namespace FuzzyLogic.DAL.Services
     public interface IAccountService
     {
         /// <summary>
-        /// Создать новый аккаунт
-        /// </summary>
-        /// <param name="accountDto"> Аккаунт для добавления </param>
-        void CreateAccount(AccountDto accountDto);
-
-        /// <summary>
         /// Обновить существующий аккаунт
         /// </summary>
         /// <param name="accountDto"> Аккаунт для обновления </param>
