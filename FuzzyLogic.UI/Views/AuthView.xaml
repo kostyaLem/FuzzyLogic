@@ -468,7 +468,7 @@
                                         <Setter Property="Command" Value="{Binding RegistrationCommand}" />
                                         <Setter Property="CommandParameter">
                                             <Setter.Value>
-                                                <MultiBinding>
+                                                <MultiBinding Converter="{converters:PasswordBoxToPasswordsConverter}">
                                                     <Binding ElementName="pass1" />
                                                     <Binding ElementName="pass2" />
                                                 </MultiBinding>

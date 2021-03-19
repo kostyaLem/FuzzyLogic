@@ -1,5 +1,5 @@
 ﻿using FuzzyLogic.DAL.Models;
-using FuzzyLogic.DAL.Services;
+using FuzzyLogic.DAL.Services.AccountService;
 using FuzzyLogic.DB.Context;
 using FuzzyLogic.DB.Context.Models;
 using Microsoft.EntityFrameworkCore;

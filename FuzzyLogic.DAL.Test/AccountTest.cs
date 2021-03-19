@@ -1,6 +1,7 @@
 using FuzzyLogic.DAL.Mappers;
 using FuzzyLogic.DAL.Models;
 using FuzzyLogic.DAL.Services;
+using FuzzyLogic.DAL.Services.AccountService;
 using NUnit.Framework;
 using System.Linq;
 using System.Threading.Tasks;

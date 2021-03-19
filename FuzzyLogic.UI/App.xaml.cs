@@ -1,5 +1,4 @@
-﻿using FuzzyLogic.UI.ViewModels;
-using FuzzyLogic.UI.Views;
+﻿using FuzzyLogic.UI.Views;
 using System.Windows;
 
 namespace FuzzyLogic.UI

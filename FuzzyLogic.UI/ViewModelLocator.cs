@@ -1,4 +1,5 @@
 ﻿using FuzzyLogic.DAL.Services;
+using FuzzyLogic.DAL.Services.AccountService;
 using FuzzyLogic.DB.Context;
 using FuzzyLogic.UI.Services;
 using FuzzyLogic.UI.Services.Interfaces;
@@ -11,8 +12,6 @@ namespace FuzzyLogic.UI
 {
     internal static class ViewModelLocator
     {
-
-
         private static IServiceProvider _provider;
 
         public static AuthViewModel AuthViewModel => _provider.GetRequiredService<AuthViewModel>();
