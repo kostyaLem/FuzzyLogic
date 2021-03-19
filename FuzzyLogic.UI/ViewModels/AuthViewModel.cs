@@ -42,7 +42,7 @@ namespace FuzzyLogic.UI.ViewModels
 
         private async void SignIn(CustomPasswordBox secureString)
         {
-            var account = await _authService.TryLogin(Login, secureString.Password, SelectedAccountType);
+            var account = await _authService.TryLoginAsync(Login, secureString.Password, SelectedAccountType);
 
             MessageBoxService.ShowMessage(Properties.Resources.CantAuthMessage, Properties.Resources.NotificationTitle, MessageBoxImage.Warning);
         }

@@ -12,7 +12,7 @@ namespace FuzzyLogic.DAL.Services
         /// <param name="password"> Пароль </param>
         /// <param name="type"> Тип аккаунта </param>
         /// <returns> Найденыый аккаунт </returns>
-        Task<AccountDto> TryLogin(string login, string password, AccountType type);
+        Task<AccountDto> TryLoginAsync(string login, string password, AccountType type);
         
         /// <summary>
         /// Создать новый аккаунт

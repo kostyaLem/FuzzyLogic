@@ -21,15 +21,15 @@ namespace FuzzyLogic.DAL.Test
         {
             var account = await _service.CreateAccount(_login, _password1, _password2, AccountType.Engineer);
 
-            var accounts = await _service.GetAccounts();
-            var expectedAccount = _service.GetAccounts().Result.Single(x => x.Id == account.Id);
+            var accounts = await _service.GetAccountsAsync();
+            var expectedAccount = _service.GetAccountsAsync().Result.Single(x => x.Id == account.Id);
             Assert.IsNotNull(expectedAccount);
         }
 
         [Test, Order(2)]
         public async Task LoginAccount_Ok()
         {
-            var account = await _service.TryLogin(_login, _password1, AccountType.Engineer);
+            var account = await _service.TryLoginAsync(_login, _password1, AccountType.Engineer);
 
             Assert.IsNotNull(account);
         }
@@ -40,10 +40,10 @@ namespace FuzzyLogic.DAL.Test
             var account = TestInitializer.Context.Accounts.First().MapToDto();
             account.Role = TestInitializer.Context.Roles.First(x => x.Status == (int)AccountType.Admin).MapToDto();
 
-            await _service.UpdateAccount(account);
-            _service.Save();
+            await _service.UpdateAccountAsync(account);
+            _service.SaveAsync();
 
-            var expectedAccount = _service.GetAccounts().Result.Single(x => x.Id == account.Id);
+            var expectedAccount = _service.GetAccountsAsync().Result.Single(x => x.Id == account.Id);
             Assert.IsNotNull(expectedAccount);
         }
 
@@ -52,8 +52,8 @@ namespace FuzzyLogic.DAL.Test
         {
             var account = TestInitializer.Context.Accounts.First().MapToDto();
 
-            await _service.DeleteAccount(account);
-            _service.Save();
+            await _service.DeleteAccountAsync(account);
+            _service.SaveAsync();
 
             Assert.Zero(TestInitializer.Context.Accounts.Count());
         }

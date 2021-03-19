@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FuzzyLogic.DAL.Services
+namespace FuzzyLogic.DAL.Services.AccountService
 {
     public sealed class AccountService : IAccountService, IAuthService, IDisposable
     {
@@ -29,11 +29,17 @@ namespace FuzzyLogic.DAL.Services
             if (password1 != password2)
                 throw new Exception("Пароли не совпадают");
 
-            var account = await CheckAccount(login);
+            var account = await CheckAccountAsync(login);
 
             if (account == null)
             {
-                account = new Account { Login = login, Password = password1, Role = await _unitOfWork.Roles.Get((int)type), RoleId = (int)type };
+                account = new Account
+                {
+                    Login = login,
+                    Password = password1,
+                    Role = await _unitOfWork.Roles.Get((int)type),
+                    RoleId = (int)type
+                };
 
                 _unitOfWork.Acconts.Create(account);
 
@@ -45,14 +51,14 @@ namespace FuzzyLogic.DAL.Services
             throw new Exception("Аккаунт с таким логином уже существует");
         }
 
-        public async Task DeleteAccount(AccountDto accountDto)
+        public async Task DeleteAccountAsync(AccountDto accountDto)
         {
             var account = await _unitOfWork.Acconts.Get(accountDto.Id);
 
             _unitOfWork.Acconts.Delete(account);
         }
 
-        public async Task UpdateAccount(AccountDto accountDto)
+        public async Task UpdateAccountAsync(AccountDto accountDto)
         {
             var account = await _unitOfWork.Acconts.Get(accountDto.Id);
             account.Role = _unitOfWork.DbContext.Roles.First(x => x.Id == accountDto.Role.Id);
@@ -60,19 +66,19 @@ namespace FuzzyLogic.DAL.Services
             _unitOfWork.Acconts.Update(account);
         }
 
-        public async Task<IEnumerable<AccountDto>> GetAccounts()
+        public async Task<IEnumerable<AccountDto>> GetAccountsAsync()
         {
-            return await GetAccounts(_ => true);
+            return await GetAccountsAsync(_ => true);
         }
 
-        public async Task<IEnumerable<AccountDto>> GetAccounts(Func<AccountDto, bool> filter)
+        public async Task<IEnumerable<AccountDto>> GetAccountsAsync(Func<AccountDto, bool> filter)
         {
             return (await _unitOfWork.Acconts.GetAll(x => filter(x.MapToDto()))).Select(x => x.MapToDto());
         }
 
-        public async Task<AccountDto> TryLogin(string login, string password, AccountType type)
+        public async Task<AccountDto> TryLoginAsync(string login, string password, AccountType type)
         {
-            var account = await CheckAccount(login);
+            var account = await CheckAccountAsync(login);
 
             if (account != null)
             {
@@ -85,12 +91,12 @@ namespace FuzzyLogic.DAL.Services
             throw new Exception("Данный аккаунт не существует");
         }
 
-        public async void Save()
+        public async void SaveAsync()
         {
             await _unitOfWork.SaveChangesAsync();
         }
 
-        private async Task<Account> CheckAccount(string login)
+        private async Task<Account> CheckAccountAsync(string login)
         {
             return await _unitOfWork.Acconts.Get(x => x.Login == login);
         }
