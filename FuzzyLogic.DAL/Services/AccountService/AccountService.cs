@@ -82,7 +82,7 @@ namespace FuzzyLogic.DAL.Services.AccountService
 
             if (account != null)
             {
-                if (PasswordCreator.CreateHash(account.Password) == PasswordCreator.CreateHash(password))
+                if (account.Password == PasswordCreator.CreateHash(password))
                 {
                     return account.MapToDto();
                 }
