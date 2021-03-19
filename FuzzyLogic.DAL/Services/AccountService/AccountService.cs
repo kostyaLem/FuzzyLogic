@@ -1,5 +1,6 @@
 ﻿using FuzzyLogic.DAL.Mappers;
 using FuzzyLogic.DAL.Models;
+using FuzzyLogic.DAL.Services.AccountService.Validator;
 using FuzzyLogic.DAL.Utils;
 using FuzzyLogic.DB.Context;
 using FuzzyLogic.DB.Context.Models;
@@ -12,11 +13,13 @@ namespace FuzzyLogic.DAL.Services.AccountService
 {
     public sealed class AccountService : IAccountService, IAuthService, IDisposable
     {
-        private UnitOfWork<FuzzyContext> _unitOfWork;
+        private readonly UnitOfWork<FuzzyContext> _unitOfWork;
+        private readonly IAccountValidator _validator;
 
-        public AccountService(FuzzyContext debugContext)
+        public AccountService(FuzzyContext debugContext, IAccountValidator accountValidator)
         {
             _unitOfWork = new UnitOfWork<FuzzyContext>(debugContext);
+            _validator = accountValidator;
         }
 
         public async Task<IEnumerable<Role>> GetRoles()
@@ -24,10 +27,9 @@ namespace FuzzyLogic.DAL.Services.AccountService
             return await _unitOfWork.Roles.GetAll();
         }
 
-        public async Task<AccountDto> CreateAccount(string login, string password1, string password2, AccountType type)
+        public async Task<AccountDto> CreateAccount(string login, string password, AccountType type)
         {
-            if (password1 != password2)
-                throw new Exception("Пароли не совпадают");
+            _validator.Validate(login, password);
 
             var account = await CheckAccountAsync(login);
 
@@ -36,7 +38,7 @@ namespace FuzzyLogic.DAL.Services.AccountService
                 account = new Account
                 {
                     Login = login,
-                    Password = password1,
+                    Password = password,
                     Role = await _unitOfWork.Roles.Get((int)type),
                     RoleId = (int)type
                 };
@@ -60,6 +62,8 @@ namespace FuzzyLogic.DAL.Services.AccountService
 
         public async Task UpdateAccountAsync(AccountDto accountDto)
         {
+            _validator.Validate(accountDto);
+
             var account = await _unitOfWork.Acconts.Get(accountDto.Id);
             account.Role = _unitOfWork.DbContext.Roles.First(x => x.Id == accountDto.Role.Id);
 
@@ -78,6 +82,8 @@ namespace FuzzyLogic.DAL.Services.AccountService
 
         public async Task<AccountDto> TryLoginAsync(string login, string password, AccountType type)
         {
+            _validator.Validate(login, password);
+
             var account = await CheckAccountAsync(login);
 
             if (account != null)

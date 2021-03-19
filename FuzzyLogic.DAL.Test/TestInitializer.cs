@@ -1,5 +1,6 @@
 ﻿using FuzzyLogic.DAL.Models;
 using FuzzyLogic.DAL.Services.AccountService;
+using FuzzyLogic.DAL.Services.AccountService.Validator;
 using FuzzyLogic.DB.Context;
 using FuzzyLogic.DB.Context.Models;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ namespace FuzzyLogic.DAL.Test
             //role1.State = EntityState.Deleted;
             //role2.State = EntityState.Deleted;
 
-            Accounts = new AccountService(Context);
+            Accounts = new AccountService(Context, new AccountValidator());
         }
     }
 }

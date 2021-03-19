@@ -35,7 +35,7 @@ namespace FuzzyLogic.UI.ViewModels
             _messageBoxService = messageBoxService;
 
             SignInCommand = new AsyncCommand<CustomPasswordBox>(SignIn);
-            RegistrationCommand = new AsyncCommand<Tuple<string, string>>(Registration);
+            RegistrationCommand = new AsyncCommand<Tuple<string, string>>(Registrate);
 
             SkipCommand = new DelegateCommand(Skip);
             ExitCommand = new DelegateCommand(Exit);
@@ -47,21 +47,24 @@ namespace FuzzyLogic.UI.ViewModels
             {
                 var account = await _authService.TryLoginAsync(Login, secureString.Password, SelectedAccountType);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _messageBoxService.ShowMessage(e.Message, Properties.Resources.NotificationTitle, MessageBoxImage.Warning);
             }
         }
 
-        private async Task Registration(Tuple<string, string> passwords)
+        private async Task Registrate(Tuple<string, string> passwords)
         {
             try
             {
-                var account = await _authService.CreateAccount(Login, passwords.Item1, passwords.Item2, SelectedAccountType);
-            }
-            catch
-            {
+                if (!string.Equals(passwords.Item1, passwords.Item2, StringComparison.OrdinalIgnoreCase))
+                    throw new Exception("Неодинаковые пароли");
 
+                var account = await _authService.CreateAccount(Login, passwords.Item1, SelectedAccountType);
+            }
+            catch (Exception e)
+            {
+                _messageBoxService.ShowMessage(e.Message, Properties.Resources.NotificationTitle, MessageBoxImage.Warning);
             }
         }
 

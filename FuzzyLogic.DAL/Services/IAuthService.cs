@@ -19,9 +19,8 @@ namespace FuzzyLogic.DAL.Services
         /// </summary>
         /// <param name="login"> Логин </param>
         /// <param name="password1"> Пароль </param>
-        /// <param name="password2"> Повторный пароль </param>
         /// <param name="type"> Тип аккаунта </param>
         /// <returns> Зарегистрированный аккаунт </returns>
-        Task<AccountDto> CreateAccount(string login, string password1, string password2, AccountType type);
+        Task<AccountDto> CreateAccount(string login, string password1, AccountType type);
     }
 }

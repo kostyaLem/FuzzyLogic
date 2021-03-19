@@ -1,7 +1,5 @@
-﻿using System;
+﻿using FuzzyLogic.DB.Context.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using FuzzyLogic.DB.Context.Models;
 
 #nullable disable
 
@@ -9,10 +7,6 @@ namespace FuzzyLogic.DB.Context
 {
     public partial class FuzzyContext : DbContext
     {
-        public FuzzyContext()
-        {
-        }
-
         public FuzzyContext(DbContextOptions<FuzzyContext> options)
             : base(options)
         {

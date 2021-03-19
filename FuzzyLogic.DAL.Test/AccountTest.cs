@@ -20,7 +20,7 @@ namespace FuzzyLogic.DAL.Test
         [Test, Order(1)]
         public async Task CreateNewAccount_Ok()
         {
-            var account = await _service.CreateAccount(_login, _password1, _password2, AccountType.Engineer);
+            var account = await _service.CreateAccount(_login, _password1, AccountType.Engineer);
 
             var accounts = await _service.GetAccountsAsync();
             var expectedAccount = _service.GetAccountsAsync().Result.Single(x => x.Id == account.Id);

@@ -1,37 +1,41 @@
-﻿using FuzzyLogic.DAL.Services;
+﻿using Autofac;
 using FuzzyLogic.DAL.Services.AccountService;
+using FuzzyLogic.DAL.Services.AccountService.Validator;
 using FuzzyLogic.DB.Context;
 using FuzzyLogic.UI.Services;
 using FuzzyLogic.UI.Services.Interfaces;
 using FuzzyLogic.UI.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace FuzzyLogic.UI
 {
     internal static class ViewModelLocator
     {
-        private static IServiceProvider _provider;
+        private static readonly IContainer _container;
 
-        public static AuthViewModel AuthViewModel => _provider.GetRequiredService<AuthViewModel>();
+        public static AuthViewModel AuthViewModel => _container.Resolve<AuthViewModel>();
 
         static ViewModelLocator()
         {
-            var services = new ServiceCollection();
+            var builder = new ContainerBuilder();
 
-            services.AddDbContext<FuzzyContext>(new Action<DbContextOptionsBuilder>(x => x.UseSqlite("DataSource=Database\\FuzzyLogicDB.db")), ServiceLifetime.Transient);
+            builder.Register(_ =>
+            {
+                return new DbContextOptionsBuilder<FuzzyContext>()
+                                .UseSqlite("DataSource=Database\\FuzzyLogicDB.db")
+                                .Options;
+            });
+            builder.RegisterType<FuzzyContext>().AsSelf().SingleInstance();
 
-            services.AddSingleton<AccountService>();
-            services.AddSingleton<IAccountService>(x => x.GetRequiredService<AccountService>());
-            services.AddSingleton<IAuthService>(x => x.GetRequiredService<AccountService>());
+            builder.RegisterType<MessageBoxService>().As<IMessageBoxService>();
 
-            services.AddSingleton<IMessageBoxService, MessageBoxService>();
+            builder.RegisterType<AccountValidator>().As<IAccountValidator>();
+            builder.RegisterType<AccountService>().AsImplementedInterfaces();
 
-            services.AddSingleton<AuthViewModel>();
+            builder.RegisterType<AuthViewModel>().AsSelf().SingleInstance();
 
-
-            _provider = services.BuildServiceProvider();
+            _container = builder.Build();
         }
     }
 }
