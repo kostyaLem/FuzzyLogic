@@ -33,7 +33,7 @@ namespace FuzzyLogic.UI.Infrastructure.Converters
         {
             if (values.All(x => x is CustomPasswordBox))
             {
-                return Tuple.Create((values[0] as CustomPasswordBox).PBox.SecurePassword, (values[1] as CustomPasswordBox).PBox.SecurePassword);
+                return Tuple.Create((values[0] as CustomPasswordBox).PBox.Password, (values[1] as CustomPasswordBox).PBox.Password);
             }
 
             return Binding.DoNothing;

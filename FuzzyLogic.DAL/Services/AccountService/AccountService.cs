@@ -98,7 +98,8 @@ namespace FuzzyLogic.DAL.Services.AccountService
 
         private async Task<Account> CheckAccountAsync(string login)
         {
-            return await _unitOfWork.Acconts.Get(x => x.Login == login);
+            var accounts = (await _unitOfWork.Acconts.GetAll()).ToList();
+            return accounts.SingleOrDefault(a => string.Equals(a.Login, login, StringComparison.OrdinalIgnoreCase));
         }
 
         public void Dispose()
