@@ -25,12 +25,9 @@ namespace FuzzyLogic.DAL.Test
             Context.Database.OpenConnection();
             Context.Database.EnsureCreated();
 
-            var role1 = Context.Roles.Add(new Role() { Name = "Admin", Status = (int)AccountType.Admin });
-            var role2 = Context.Roles.Add(new Role() { Name = "User", Status = (int)AccountType.Engineer });
+            Context.Roles.Add(new Role() { Name = "Admin", Status = (int)AccountType.Admin });
+            Context.Roles.Add(new Role() { Name = "User", Status = (int)AccountType.Engineer });
             Context.SaveChanges();
-
-            //role1.State = EntityState.Deleted;
-            //role2.State = EntityState.Deleted;
 
             Accounts = new AccountService(Context, new AccountValidator());
         }

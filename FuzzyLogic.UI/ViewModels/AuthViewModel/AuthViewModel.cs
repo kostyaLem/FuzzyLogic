@@ -3,7 +3,6 @@ using FuzzyLogic.DAL.Models;
 using FuzzyLogic.DAL.Services;
 using FuzzyLogic.UI.Controls;
 using System;
-using System.Security;
 using System.Threading.Tasks;
 using System.Windows;
 using IMessageBoxService = FuzzyLogic.UI.Services.Interfaces.IMessageBoxService;
